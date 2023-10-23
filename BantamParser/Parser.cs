@@ -9,7 +9,7 @@ namespace BantamParser
 {
     internal class Parser
     {
-        IExpression ParseExpression()
+        public IExpression ParseExpression()
         {
             throw new NotImplementedException();
         }
