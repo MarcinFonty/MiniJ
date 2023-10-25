@@ -68,6 +68,8 @@ namespace BantamParser
             return result;
         }
 
+        //Returns the token at the requested index
+        //Only adds to mRead if you want to look up further than you already did before.
         private Token LookAhead(int distance)
         {
             // Read in as many as needed.
