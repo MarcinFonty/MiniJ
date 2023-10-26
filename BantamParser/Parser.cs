@@ -32,6 +32,11 @@ namespace BantamParser
             mPrefixParslet.Add(token, prefix);
         }
 
+        public void Register(TokenType token, IInfixParselet infix)
+        {
+            mInfixParselet.Add(token, infix);
+        }
+
         public void Prefix(TokenType token)
         {
             Register(token, new PrefixOperatorParselet());
@@ -78,6 +83,15 @@ namespace BantamParser
             return infix.Parse(this, left, token);
         }
 
+        public Token Consume(TokenType expected)
+        {
+            Token token = LookAhead(0);
+            if(token.mType != expected)
+            {
+                throw new Exception("Expected token " + expected +" and found " + token.mType);
+            }
+            return Consume();
+        }
 
         //consume and lookAhead are both taken from git as they arn't explained in the article
         public Token Consume()
