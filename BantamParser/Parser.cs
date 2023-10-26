@@ -19,10 +19,13 @@ namespace BantamParser
         public Parser(IEnumerator<Token> tokens)
         {
             Register(TokenType.NAME, new NameParselet());
+            Register(TokenType.DIGIT, new NameParselet());
             Prefix(TokenType.PLUS);
             Prefix(TokenType.MINUS);
             Prefix(TokenType.TILDE);
             Prefix(TokenType.BANG);
+            Register(TokenType.PLUS, new BinaryOperatorParselet());
+            Register(TokenType.MINUS, new BinaryOperatorParselet());
             mTokens = tokens;
 
         }
@@ -65,22 +68,15 @@ namespace BantamParser
             try
             {
                 infix = mInfixParselet[token.mType];
+                //If infix does follow up
+                Consume();
+                return infix.Parse(this, left, token);
             }
             catch (KeyNotFoundException)
             {
-                //I don't expect ever to get this error as there would be one before as it would mean the TokenType wasn't ever asigned.
-                throw;
-            }
-
-            //Returns the prefix parselet as infix doesn't follow up
-            if (infix == null)
-            {
+                //Returns the prefix parselet as infix doesn't follow up
                 return left;
             }
-
-            //If infix does follow up
-            Consume();
-            return infix.Parse(this, left, token);
         }
 
         public Token Consume(TokenType expected)
