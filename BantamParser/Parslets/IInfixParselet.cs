@@ -10,5 +10,6 @@ namespace BantamParser.Parslets
     internal interface IInfixParselet
     {
         IExpression Parse(Parser parser, IExpression left, Token token);
+        int getPredecence();
     }
 }

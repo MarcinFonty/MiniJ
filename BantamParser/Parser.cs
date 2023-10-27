@@ -20,12 +20,15 @@ namespace BantamParser
         {
             Register(TokenType.NAME, new NameParselet());
             Register(TokenType.DIGIT, new NameParselet());
-            Prefix(TokenType.PLUS);
-            Prefix(TokenType.MINUS);
-            Prefix(TokenType.TILDE);
-            Prefix(TokenType.BANG);
-            Register(TokenType.PLUS, new BinaryOperatorParselet());
-            Register(TokenType.MINUS, new BinaryOperatorParselet());
+            Prefix(TokenType.PLUS, (int)Precedence.PREFIX);
+            Prefix(TokenType.MINUS, (int)Precedence.PREFIX);
+            Prefix(TokenType.TILDE, (int)Precedence.PREFIX);
+            Prefix(TokenType.BANG, (int)Precedence.PREFIX);
+            InfixLeft(TokenType.PLUS, (int)Precedence.SUM);
+            InfixLeft(TokenType.MINUS, (int)Precedence.SUM);
+            InfixLeft(TokenType.ASTERISK, (int)Precedence.PRODUCT);
+            InfixLeft(TokenType.SLASH, (int)Precedence.PRODUCT);
+            InfixRight(TokenType.CARET, (int)Precedence.EXPONENT);
             mTokens = tokens;
 
         }
@@ -40,12 +43,21 @@ namespace BantamParser
             mInfixParselet.Add(token, infix);
         }
 
-        public void Prefix(TokenType token)
+        public void Prefix(TokenType token, int precedence)
         {
-            Register(token, new PrefixOperatorParselet());
+            Register(token, new PrefixOperatorParselet(precedence));
+        }
+
+        public void InfixLeft(TokenType token, int precedence)
+        {
+            Register(token, new BinaryOperatorParselet(precedence, false));
+        }
+        public void InfixRight(TokenType token, int precedence)
+        {
+            Register(token, new BinaryOperatorParselet(precedence, true));
         }
         
-        public IExpression ParseExpression() //TODO: Make the parser itself and understand what you're doing
+        public IExpression ParseExpression(int predecece)
         {
             Token token = Consume();
             IPrefixParselet prefix;
@@ -62,20 +74,31 @@ namespace BantamParser
 
             IExpression left = prefix.Parse(this, token);
 
-            token = LookAhead(0);
-            IInfixParselet infix;
+            while (predecece < GetPredecene())
+            {
+                token = Consume();
+                IInfixParselet infix = mInfixParselet[token.mType];
+                left = infix.Parse(this, left, token);
+            }
 
+            return left;
+        }
+
+        public IExpression ParseExpression()
+        {
+            return ParseExpression(0);
+        }
+
+        private int GetPredecene()
+        {
             try
             {
-                infix = mInfixParselet[token.mType];
-                //If infix does follow up
-                Consume();
-                return infix.Parse(this, left, token);
+                IInfixParselet parser = mInfixParselet[LookAhead(0).mType];
+                return parser.getPredecence();
             }
             catch (KeyNotFoundException)
             {
-                //Returns the prefix parselet as infix doesn't follow up
-                return left;
+                return 0;
             }
         }
 

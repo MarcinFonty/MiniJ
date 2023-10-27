@@ -10,11 +10,16 @@ namespace BantamParser.Parslets
 {
     internal class ConditionalParselet : IInfixParselet
     {
+        public int getPredecence()
+        {
+            return (int)Precedence.CONDITIONAL;
+        }
+
         public IExpression Parse(Parser parser, IExpression left, Token token)
         {
             IExpression thenArm = parser.ParseExpression();
             parser.Consume(TokenType.COLON);
-            IExpression elseArm = parser.ParseExpression();
+            IExpression elseArm = parser.ParseExpression((int)Precedence.CONDITIONAL);
 
             return new Expressions.ConditionalExpression(left, thenArm, elseArm);
         }

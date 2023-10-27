@@ -7,8 +7,9 @@ internal class Program
     {
 
         //Lexer lexer = new Lexer("9 + 4 * 8 = 49");
-        //Lexer lexer = new Lexer("A + C - D + 9 - 12");
-        Lexer lexer = new Lexer("-2 + -4");
+        //Lexer lexer = new Lexer("A + C * D + 9 - 12");
+        //Lexer lexer = new Lexer("-2 + -4");
+        Lexer lexer = new Lexer("A^12^12 - 3 ^a");
         //foreach (Token token in lexer)
         //{
         //    Console.WriteLine(token.mText + " " + token.mType.ToString());

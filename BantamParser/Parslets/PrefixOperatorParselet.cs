@@ -9,10 +9,21 @@ namespace BantamParser.Parslets
 {
     internal class PrefixOperatorParselet : IPrefixParselet
     {
+        private int mPredecence;
+        public PrefixOperatorParselet(int predecence)
+        {
+            mPredecence = predecence;
+        }
+
         public IExpression Parse(Parser parser, Token token)
         {
-            IExpression operand = parser.ParseExpression();
+            IExpression operand = parser.ParseExpression(mPredecence);
             return new PrefixExpression(token.mType, operand);
+        }
+
+        public int GetPredecence()
+        {
+            return mPredecence;
         }
     }
 }
