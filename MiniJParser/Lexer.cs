@@ -6,14 +6,14 @@ namespace MiniJParser
 {
     public class Lexer : IEnumerable<Token>
     {
-        private readonly string mText;
-        private int mIndex;
+        private readonly string _text;
+        private int _index;
         private readonly Dictionary<char, TokenType> mPunctuators = new Dictionary<char, TokenType>();
 
         public Lexer(string text)
         {
-            mIndex = 0;
-            mText = text;
+            _index = 0;
+            _text = text;
 
             // Register all of the TokenTypes that are explicit punctuators.
             foreach (TokenType type in Enum.GetValues(typeof(TokenType)))
@@ -28,9 +28,9 @@ namespace MiniJParser
 
         public IEnumerator<Token> GetEnumerator()
         {
-            while (mIndex < mText.Length)
+            while (_index < _text.Length)
             {
-                char c = mText[mIndex++];
+                char c = _text[_index++];
 
                 if (mPunctuators.ContainsKey(c))
                 {
@@ -40,24 +40,24 @@ namespace MiniJParser
                 else if (char.IsLetter(c))
                 {
                     // Handle names.
-                    int start = mIndex - 1;
-                    while (mIndex < mText.Length && char.IsLetter(mText[mIndex]))
+                    int start = _index - 1;
+                    while (_index < _text.Length && char.IsLetter(_text[_index]))
                     {
-                        mIndex++;
+                        _index++;
                     }
 
-                    string name = mText.Substring(start, mIndex - start);
+                    string name = _text.Substring(start, _index - start);
                     yield return new Token(TokenType.NAME, name);
                 }
                 else if (char.IsDigit(c))
                 {
-                    int start = mIndex - 1;
-                    while (mIndex < mText.Length && char.IsDigit(mText[mIndex]))
+                    int start = _index - 1;
+                    while (_index < _text.Length && char.IsDigit(_text[_index]))
                     {
-                        mIndex++;
+                        _index++;
                     }
 
-                    string digit = mText.Substring(start, mIndex - start);
+                    string digit = _text.Substring(start, _index - start);
                     yield return new Token(TokenType.DIGIT, digit);
                 }
                 else

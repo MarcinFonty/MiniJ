@@ -9,15 +9,15 @@ namespace MiniJParser.Expressions
 {
     internal class NameExpression : IExpression
     {
-        public string mName { get; }
+        public string _name { get; }
         public NameExpression(string name)
         {
-            mName = name;
+            _name = name;
         }
 
         public void Print(StringBuilder sb)
         {
-            sb.Append(mName);
+            sb.Append(_name);
         }
     }
 }

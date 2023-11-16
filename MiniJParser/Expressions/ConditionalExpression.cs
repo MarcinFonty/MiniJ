@@ -8,24 +8,24 @@ namespace MiniJParser.Expressions
 {
     internal class ConditionalExpression : IExpression
     {
-        public IExpression mCondittion { get; }
-        public IExpression mThenArm { get; }
-        public IExpression mElseArm { get; }
+        public IExpression _condittion { get; }
+        public IExpression _thenArm { get; }
+        public IExpression _elseArm { get; }
         public ConditionalExpression(IExpression condittion, IExpression thenArm, IExpression elseArm)
         {
-            mCondittion = condittion;
-            mThenArm = thenArm;
-            mElseArm = elseArm;
+            _condittion = condittion;
+            _thenArm = thenArm;
+            _elseArm = elseArm;
         }
 
         public void Print(StringBuilder sb)
         {
             sb.Append("(");
-            mCondittion.Print(sb);
+            _condittion.Print(sb);
             sb.Append(" ? ");
-            mThenArm.Print(sb);
+            _thenArm.Print(sb);
             sb.Append(" : ");
-            mElseArm.Print(sb);
+            _elseArm.Print(sb);
             sb.Append(")");
         }
     }

@@ -11,8 +11,8 @@ namespace MiniJParser
 {
     internal class Parser
     {
-        private readonly Dictionary<TokenType, IPrefixParselet> mPrefixParslet = new Dictionary<TokenType, IPrefixParselet>();
-        private readonly Dictionary<TokenType, IInfixParselet> mInfixParselet = new Dictionary<TokenType, IInfixParselet>();
+        private readonly Dictionary<TokenType, IPrefixParselet> _prefixParslet = new Dictionary<TokenType, IPrefixParselet>();
+        private readonly Dictionary<TokenType, IInfixParselet> _infixParselet = new Dictionary<TokenType, IInfixParselet>();
         private readonly List<Token> mRead = new List<Token>();
         private readonly IEnumerator<Token> mTokens;
 
@@ -35,12 +35,12 @@ namespace MiniJParser
 
         public void Register(TokenType token, IPrefixParselet prefix)
         {
-            mPrefixParslet.Add(token, prefix);
+            _prefixParslet.Add(token, prefix);
         }
 
         public void Register(TokenType token, IInfixParselet infix)
         {
-            mInfixParselet.Add(token, infix);
+            _infixParselet.Add(token, infix);
         }
 
         public void Prefix(TokenType token, int precedence)
@@ -64,11 +64,11 @@ namespace MiniJParser
 
             try
             {
-                prefix = mPrefixParslet[token.mType];
+                prefix = _prefixParslet[token.Type];
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine("Could not parse \"" + token.mText + "\".");
+                Console.WriteLine("Could not parse \"" + token.Text + "\".");
                 throw;
             }
 
@@ -77,7 +77,7 @@ namespace MiniJParser
             while (predecece < GetPredecene())
             {
                 token = Consume();
-                IInfixParselet infix = mInfixParselet[token.mType];
+                IInfixParselet infix = _infixParselet[token.Type];
                 left = infix.Parse(this, left, token);
             }
 
@@ -93,7 +93,7 @@ namespace MiniJParser
         {
             try
             {
-                IInfixParselet parser = mInfixParselet[LookAhead(0).mType];
+                IInfixParselet parser = _infixParselet[LookAhead(0).Type];
                 return parser.getPredecence();
             }
             catch (KeyNotFoundException)
@@ -105,9 +105,9 @@ namespace MiniJParser
         public Token Consume(TokenType expected)
         {
             Token token = LookAhead(0);
-            if(token.mType != expected)
+            if(token.Type != expected)
             {
-                throw new Exception("Expected token " + expected +" and found " + token.mType);
+                throw new Exception("Expected token " + expected +" and found " + token.Type);
             }
             return Consume();
         }

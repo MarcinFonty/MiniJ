@@ -9,20 +9,20 @@ namespace MiniJParser.Parslets
 {
     internal class PostfixOperatorParselet : IInfixParselet
     {
-        private int mPredecence;
+        private int _predecence;
         public PostfixOperatorParselet(int predecence)
         {
-            mPredecence = predecence;
+            _predecence = predecence;
         }
 
         public int getPredecence()
         {
-            return mPredecence;
+            return _predecence;
         }
 
         public IExpression Parse(Parser parser, IExpression left, Token token)
         {
-            return new PostfixExpression(left, token.mType);
+            return new PostfixExpression(left, token.Type);
         }
     }
 }

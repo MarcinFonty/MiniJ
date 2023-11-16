@@ -11,7 +11,7 @@ namespace MiniJParser.Parslets
     {
         public IExpression Parse(Parser parser, Token token)
         {
-            return new NameExpression(token.mText);
+            return new NameExpression(token.Text);
         }
     }
 }

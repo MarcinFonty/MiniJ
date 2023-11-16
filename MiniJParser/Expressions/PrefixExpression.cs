@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace MiniJParser.Expressions
 {
     internal class PrefixExpression : IExpression //TODO: needs to be revisited later
     {
-        public TokenType mOperator { get; }
-        public IExpression mOperand { get; }
+        private TokenType _operator { get; }
+        private IExpression _operand { get; }
         public PrefixExpression(TokenType operatoR, IExpression operand)
         {
-            mOperator = operatoR;
-            mOperand = operand;
+            _operator = operatoR;
+            _operand = operand;
         }
         public void Print(StringBuilder sb)
         {
-            sb.Append('(').Append(mOperator.Punctuator());
-            mOperand.Print(sb);
+            sb.Append('(').Append(_operator.Punctuator());
+            _operand.Print(sb);
             sb.Append(")");
         }
     }

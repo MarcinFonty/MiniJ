@@ -9,22 +9,22 @@ namespace MiniJParser.Parslets
 {
     internal class BinaryOperatorParselet : IInfixParselet
     {
-        private int mPredecence;
-        private bool mIsRight;
+        private int _predecence;
+        private bool _isRight;
         public BinaryOperatorParselet(int predecence, bool isRight)
         {
-            mPredecence = predecence;
-            mIsRight = isRight;
+            _predecence = predecence;
+            _isRight = isRight;
         }
         public IExpression Parse(Parser parser, IExpression left, Token token)
         {
-            IExpression right = parser.ParseExpression(mPredecence - (mIsRight ? 1 : 0));
-            return new OperatorExpression(left, token.mType, right);
+            IExpression right = parser.ParseExpression(_predecence - (_isRight ? 1 : 0));
+            return new OperatorExpression(left, token.Type, right);
         }
 
         public int getPredecence()
         {
-            return mPredecence;
+            return _predecence;
         }
     }
 }

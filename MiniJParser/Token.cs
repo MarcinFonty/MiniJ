@@ -8,12 +8,12 @@ namespace MiniJParser
 {
     public class Token
     {
-        public TokenType mType { get; set; }
-        public string mText { get; set; }
-        public Token(TokenType Type, String Text)
+        public TokenType Type { get; set; }
+        public string Text { get; set; }
+        public Token(TokenType type, string text)
         {
-            mType = Type;
-            mText = Text;
+            Type = type;
+            Text = text;
         }
     }
 }

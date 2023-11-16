@@ -8,19 +8,19 @@ namespace MiniJParser.Expressions
 {
     internal class PostfixExpression : IExpression
     {
-        private IExpression mLeft { get; }
-        private TokenType mOperator { get; }
+        private IExpression _left { get; }
+        private TokenType _operator { get; }
         public PostfixExpression(IExpression left, TokenType operatoR)
         {
-            mLeft = left;
-            mOperator = operatoR;
+            _left = left;
+            _operator = operatoR;
         }
 
         public void Print(StringBuilder sb)
         {
             sb.Append('(');
-            mLeft.Print(sb);
-            sb.Append(mOperator.Punctuator()).Append(')');
+            _left.Print(sb);
+            sb.Append(_operator.Punctuator()).Append(')');
         }
     }
 }

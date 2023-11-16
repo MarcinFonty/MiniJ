@@ -9,21 +9,21 @@ namespace MiniJParser.Parslets
 {
     internal class PrefixOperatorParselet : IPrefixParselet
     {
-        private int mPredecence;
+        private int _predecence;
         public PrefixOperatorParselet(int predecence)
         {
-            mPredecence = predecence;
+            _predecence = predecence;
         }
 
         public IExpression Parse(Parser parser, Token token)
         {
-            IExpression operand = parser.ParseExpression(mPredecence);
-            return new PrefixExpression(token.mType, operand);
+            IExpression operand = parser.ParseExpression(_predecence);
+            return new PrefixExpression(token.Type, operand);
         }
 
         public int GetPredecence()
         {
-            return mPredecence;
+            return _predecence;
         }
     }
 }

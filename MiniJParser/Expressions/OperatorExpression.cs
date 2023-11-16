@@ -8,21 +8,21 @@ namespace MiniJParser.Expressions
 {
     internal class OperatorExpression : IExpression
     {
-        public IExpression mLeft {  get; }
-        public TokenType mOperator {  get; }
-        public IExpression mRight { get; }
+        private IExpression _left {  get; }
+        private TokenType _operator {  get; }
+        private IExpression _right { get; }
         public OperatorExpression(IExpression left, TokenType operatoR, IExpression right)
         {
-            mLeft = left;
-            mOperator = operatoR;
-            mRight = right;
+            _left = left;
+            _operator = operatoR;
+            _right = right;
         }
         public void Print(StringBuilder sb)
         {
             sb.Append('(');
-            mLeft.Print(sb);
-            sb.Append(' ').Append(mOperator.Punctuator()).Append(' ');
-            mRight.Print(sb);
+            _left.Print(sb);
+            sb.Append(' ').Append(_operator.Punctuator()).Append(' ');
+            _right.Print(sb);
             sb.Append(")");
         }
     }
