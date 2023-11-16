@@ -13,24 +13,14 @@ namespace MiniJParser
     {
         private readonly Dictionary<TokenType, IPrefixParselet> _prefixParslet = new Dictionary<TokenType, IPrefixParselet>();
         private readonly Dictionary<TokenType, IInfixParselet> _infixParselet = new Dictionary<TokenType, IInfixParselet>();
-        private readonly List<Token> mRead = new List<Token>();
-        private readonly IEnumerator<Token> mTokens;
+        private readonly List<Token> _read = new List<Token>();
+        private readonly IEnumerator<Token> _tokens;
 
         public Parser(IEnumerator<Token> tokens)
         {
-            Register(TokenType.NAME, new NameParselet());
-            Register(TokenType.DIGIT, new NameParselet());
-            Prefix(TokenType.PLUS, (int)Precedence.PREFIX);
-            Prefix(TokenType.MINUS, (int)Precedence.PREFIX);
-            Prefix(TokenType.TILDE, (int)Precedence.PREFIX);
-            Prefix(TokenType.BANG, (int)Precedence.PREFIX);
-            InfixLeft(TokenType.PLUS, (int)Precedence.SUM);
-            InfixLeft(TokenType.MINUS, (int)Precedence.SUM);
-            InfixLeft(TokenType.ASTERISK, (int)Precedence.PRODUCT);
-            InfixLeft(TokenType.SLASH, (int)Precedence.PRODUCT);
-            InfixRight(TokenType.CARET, (int)Precedence.EXPONENT);
-            mTokens = tokens;
-
+            MiniJParser registration = new MiniJParser(this); //This should be done more dynamically instead just MiniJ, to have to posibility of other languages.
+            registration.DoRegistration();
+            _tokens = tokens;
         }
 
         public void Register(TokenType token, IPrefixParselet prefix)
@@ -41,20 +31,6 @@ namespace MiniJParser
         public void Register(TokenType token, IInfixParselet infix)
         {
             _infixParselet.Add(token, infix);
-        }
-
-        public void Prefix(TokenType token, int precedence)
-        {
-            Register(token, new PrefixOperatorParselet(precedence));
-        }
-
-        public void InfixLeft(TokenType token, int precedence)
-        {
-            Register(token, new BinaryOperatorParselet(precedence, false));
-        }
-        public void InfixRight(TokenType token, int precedence)
-        {
-            Register(token, new BinaryOperatorParselet(precedence, true));
         }
         
         public IExpression ParseExpression(int predecece)
@@ -119,8 +95,8 @@ namespace MiniJParser
             LookAhead(0);
 
             //Get the token you want to return
-            var result = mRead[0];
-            mRead.RemoveAt(0);
+            var result = _read[0];
+            _read.RemoveAt(0);
 
             return result;
         }
@@ -130,11 +106,11 @@ namespace MiniJParser
         private Token LookAhead(int distance)
         {
             // Read in as many as needed.
-            while (distance >= mRead.Count) //TODO: I have a feeling like the mRead state should be reset or at least moven forward once the parsing process processes. But unsure for now.
+            while (distance >= _read.Count) //TODO: I have a feeling like the mRead state should be reset or at least moven forward once the parsing process processes. But unsure for now.
             {
-                if (mTokens.MoveNext())
+                if (_tokens.MoveNext())
                 {
-                    mRead.Add(mTokens.Current);
+                    _read.Add(_tokens.Current);
                 }
                 else
                 {
@@ -143,7 +119,7 @@ namespace MiniJParser
             }
 
             // Get the queued token.
-            return mRead[distance];
+            return _read[distance];
         }
     }
 }
