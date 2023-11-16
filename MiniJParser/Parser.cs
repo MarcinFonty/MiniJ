@@ -1,5 +1,5 @@
-﻿using BantamParser.Expressions;
-using BantamParser.Parslets;
+﻿using MiniJParser.Expressions;
+using MiniJParser.Parslets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BantamParser
+namespace MiniJParser
 {
     internal class Parser
     {

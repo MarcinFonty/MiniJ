@@ -1,4 +1,4 @@
-﻿using BantamParser;
+﻿using MiniJParser;
 using System.Text;
 
 internal class Program

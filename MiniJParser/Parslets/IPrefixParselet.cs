@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BantamParser.Expressions;
+using MiniJParser.Expressions;
 
-namespace BantamParser.Parslets
+namespace MiniJParser.Parslets
 {
     internal interface IPrefixParselet
     {
