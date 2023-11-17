@@ -37,29 +37,29 @@ namespace MiniJParser
                     // Handle punctuation.
                     yield return new Token(mPunctuators[c], c.ToString());
                 }
-                else if (char.IsLetter(c))
+                else if (char.IsLetter(c) || char.IsDigit(c))
                 {
-                    // Handle names.
+                    // Handle literals.
                     int start = _index - 1;
-                    while (_index < _text.Length && char.IsLetter(_text[_index]))
+                    while (_index < _text.Length && (char.IsLetter(_text[_index]) || char.IsDigit(_text[_index])))
                     {
                         _index++;
                     }
 
-                    string name = _text.Substring(start, _index - start);
-                    yield return new Token(TokenType.NAME, name);
+                    string literal = _text.Substring(start, _index - start);
+                    yield return new Token(TokenType.LITERAL, literal);
                 }
-                else if (char.IsDigit(c))
-                {
-                    int start = _index - 1;
-                    while (_index < _text.Length && char.IsDigit(_text[_index]))
-                    {
-                        _index++;
-                    }
+                //else if (char.IsDigit(c))
+                //{
+                //    int start = _index - 1;
+                //    while (_index < _text.Length && char.IsDigit(_text[_index]))
+                //    {
+                //        _index++;
+                //    }
 
-                    string digit = _text.Substring(start, _index - start);
-                    yield return new Token(TokenType.DIGIT, digit);
-                }
+                //    string digit = _text.Substring(start, _index - start);
+                //    yield return new Token(TokenType.LITERAL, digit);
+                //}
                 else
                 {
                     // Ignore all other characters (whitespace, etc.)

@@ -8,6 +8,29 @@ namespace MiniJParser
 {
     public enum TokenType
     {
+        LEFT_CURLY_BRACKET,
+        RIGHT_CURLY_BRAKET,
+        SEMICOLON,
+        LITERAL,
+        //PLUS_ASSING,
+        //MINUS_ASSING,
+        LESS_THAN,
+        GREATER_THAN,
+        //LESSER_OR_EQUAL,
+        //GREATER_OR_EQUAL,
+        //PLUS_PLUS,
+        //MINUS_MINUS,
+
+        KEYWORD,
+        //LET,
+        //CONSTANT,
+        //IF,
+        //ELSE_IF,
+        //ELSE,
+        //FOR,
+        //FUNCTION,
+        //RETURN,
+
         LEFT_PAREN,
         RIGHT_PAREN,
         COMMA,
@@ -21,17 +44,40 @@ namespace MiniJParser
         BANG,
         QUESTION,
         COLON,
-        NAME,
         EOF,
-        DIGIT,
     }
 
     public static class TokenTypeExtensions
     {
+        public static List<string> Keywords = new List<string> 
+        { 
+            "let",
+            "const",
+            "if",
+            "else",
+            "for",
+            "function",
+            "return"
+        };
         public static char Punctuator(this TokenType type)
         {
             switch (type)
             {
+                case TokenType.LEFT_CURLY_BRACKET:
+                    return '{';
+
+                case TokenType.RIGHT_CURLY_BRAKET:
+                    return '}';
+
+                case TokenType.SEMICOLON:
+                    return ';';
+
+                case TokenType.LESS_THAN:
+                    return '<';
+
+                case TokenType.GREATER_THAN:
+                    return '>';
+
                 case TokenType.LEFT_PAREN:
                     return '(';
 
