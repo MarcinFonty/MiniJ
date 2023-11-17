@@ -47,19 +47,15 @@ namespace MiniJParser
                     }
 
                     string literal = _text.Substring(start, _index - start);
-                    yield return new Token(TokenType.LITERAL, literal);
-                }
-                //else if (char.IsDigit(c))
-                //{
-                //    int start = _index - 1;
-                //    while (_index < _text.Length && char.IsDigit(_text[_index]))
-                //    {
-                //        _index++;
-                //    }
 
-                //    string digit = _text.Substring(start, _index - start);
-                //    yield return new Token(TokenType.LITERAL, digit);
-                //}
+                    if (TokenTypeExtensions.Keywords.Contains(literal))
+                    {
+                        yield return new Token(TokenType.KEYWORD, literal);
+                    } else
+                    {
+                        yield return new Token(TokenType.LITERAL, literal);
+                    }
+                }
                 else
                 {
                     // Ignore all other characters (whitespace, etc.)
