@@ -37,7 +37,39 @@ namespace MiniJParser
                     // Handle punctuation.
                     yield return new Token(mPunctuators[c], c.ToString());
                 }
-                else if (char.IsLetter(c) || char.IsDigit(c))
+                else if (c == '"')
+                {
+                    int start = _index -1;
+                    while (_index < _text.Length && _text[_index] != '"')
+                    {
+                        _index++;
+                    }
+
+                    if (_index < _text.Length && _text[_index] == '"')
+                    {
+                        _index++;
+                        string literal = _text.Substring(start, _index - start);
+                        yield return new Token(TokenType.LITERAL, literal);
+                    }
+                    else
+                    {
+                        throw new Exception("No closing quatation found");
+                    }
+                }
+                else if (char.IsDigit(c))
+                {
+                    // Handle literals.
+                    int start = _index - 1;
+                    while (_index < _text.Length && char.IsDigit(_text[_index]))
+                    {
+                        _index++;
+                    }
+
+                    string literal = _text.Substring(start, _index - start);
+
+                    yield return new Token(TokenType.LITERAL, literal);
+                }
+                else if (char.IsLetter(c))
                 {
                     // Handle literals.
                     int start = _index - 1;
@@ -46,14 +78,15 @@ namespace MiniJParser
                         _index++;
                     }
 
-                    string literal = _text.Substring(start, _index - start);
+                    string identifier = _text.Substring(start, _index - start);
 
-                    if (TokenTypeExtensions.Keywords.Contains(literal))
+                    if (TokenTypeExtensions.Keywords.Contains(identifier))
                     {
-                        yield return new Token(TokenType.KEYWORD, literal);
-                    } else
+                        yield return new Token(TokenType.KEYWORD, identifier);
+                    } 
+                    else
                     {
-                        yield return new Token(TokenType.LITERAL, literal);
+                        yield return new Token(TokenType.IDENTIFIER, identifier);
                     }
                 }
                 else

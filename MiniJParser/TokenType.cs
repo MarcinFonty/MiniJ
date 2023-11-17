@@ -22,6 +22,7 @@ namespace MiniJParser
         //MINUS_MINUS,
 
         KEYWORD,
+        IDENTIFIER,
         //LET,
         //CONSTANT,
         //IF,
