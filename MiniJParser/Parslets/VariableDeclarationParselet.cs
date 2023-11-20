@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MiniJParser.Parslets
 {
-    internal class VariableDefineParselet : IPrefixParselet
+    internal class VariableDeclarationParselet : IPrefixParselet
     {
         public IExpression Parse(Parser parser, Token token)
         {

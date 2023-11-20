@@ -5,15 +5,15 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        string input = File.ReadAllText("C:\\Users\\marci\\Desktop\\Semester 7\\MiniJ\\ExampleMiniJ.js");
-        Lexer lexer = new Lexer(input);
-        foreach (Token token in lexer)
-        {
-            Console.WriteLine(token.Text + " " + token.Type.ToString());
-            if (token.Type == TokenType.EOF) { break; }
-        }
+        //string input = File.ReadAllText("..\\..\\..\\..\\ExampleMiniJ.js");
+        //Lexer lexer = new Lexer(input);
+        //foreach (Token token in lexer)
+        //{
+        //    Console.WriteLine(token.Text + " " + token.Type.ToString());
+        //    if (token.Type == TokenType.EOF) { break; }
+        //}
 
-        //Lexer lexer = new Lexer("let x = 10 * 2 * 8");
+        Lexer lexer = new Lexer("-x = 10 * 2 * 8");
 
         Parser parser = new Parser(lexer.GetEnumerator());
 
