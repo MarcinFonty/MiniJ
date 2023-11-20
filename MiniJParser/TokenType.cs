@@ -23,16 +23,16 @@ namespace MiniJParser
         //PLUS_PLUS,
         //MINUS_MINUS,
 
-        KEYWORD,
+        //KEYWORD,
         IDENTIFIER,
-        //LET,
-        //CONSTANT,
-        //IF,
-        //ELSE_IF,
-        //ELSE,
-        //FOR,
-        //FUNCTION,
-        //RETURN,
+        LET,
+        CONSTANT,
+        IF,
+        ELSE_IF,
+        ELSE,
+        FOR,
+        FUNCTION,
+        RETURN,
 
         LEFT_PAREN,
         RIGHT_PAREN,
@@ -52,16 +52,16 @@ namespace MiniJParser
 
     public static class TokenTypeExtensions
     {
-        public static List<string> Keywords = new List<string> 
-        { 
-            "let",
-            "const",
-            "if",
-            "else",
-            "for",
-            "function",
-            "return"
-        };
+        //public static List<string> Keywords = new List<string> 
+        //{ 
+        //    "let",
+        //    "const",
+        //    "if",
+        //    "else",
+        //    "for",
+        //    "function",
+        //    "return"
+        //};
         public static char Punctuator(this TokenType type)
         {
             switch (type)
