@@ -28,7 +28,7 @@ namespace MiniJParser.Expressions
                 _variableValue.Print(sb, indent + "\t");
             } else
             {
-                sb.AppendLine("null");
+                sb.Append("null");
             }
         }
     }

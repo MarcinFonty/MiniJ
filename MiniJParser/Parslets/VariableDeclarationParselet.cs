@@ -9,7 +9,7 @@ namespace MiniJParser.Parslets
 {
     internal class VariableDeclarationParselet : IPrefixParselet
     {
-        public IExpression Parse(Parser parser, Token token)
+        public IExpression Parse(Parser parser, Token token) //TODO: Because of how Consume is used, it breaks ParseAllExpresions as it removes the semicolom.
         {
             Token identifier = parser.Consume();
             Token res = parser.Consume();

@@ -14,6 +14,7 @@ internal class Program
         //}
 
         Lexer lexer = new Lexer("let a = 12 - 3;" +
+            "let y;" +
             "x = 33;" +
             "13 + 9 * 9;");
 
