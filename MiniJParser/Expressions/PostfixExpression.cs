@@ -16,7 +16,7 @@ namespace MiniJParser.Expressions
             _operator = operatoR;
         }
 
-        public void Print(StringBuilder sb)
+        public void Print(StringBuilder sb, string indent = "")
         {
             sb.Append('(');
             _left.Print(sb);

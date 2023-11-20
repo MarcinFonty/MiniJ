@@ -15,7 +15,7 @@ namespace MiniJParser.Expressions
             _name = name;
         }
 
-        public void Print(StringBuilder sb)
+        public void Print(StringBuilder sb, string indent = "")
         {
             sb.Append(_name);
         }

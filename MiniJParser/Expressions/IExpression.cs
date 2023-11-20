@@ -8,6 +8,6 @@ namespace MiniJParser.Expressions
 {
     internal interface IExpression
     {
-        public void Print(StringBuilder sb);
+        public void Print(StringBuilder sb, string indent = "");
     }
 }

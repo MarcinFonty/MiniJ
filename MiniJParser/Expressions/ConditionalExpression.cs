@@ -18,7 +18,7 @@ namespace MiniJParser.Expressions
             _elseArm = elseArm;
         }
 
-        public void Print(StringBuilder sb)
+        public void Print(StringBuilder sb, string indent = "")
         {
             sb.Append("(");
             _condittion.Print(sb);

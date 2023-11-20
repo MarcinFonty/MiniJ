@@ -11,7 +11,7 @@ namespace MiniJParser.Expressions
             _operator = operatoR;
             _operand = operand;
         }
-        public void Print(StringBuilder sb)
+        public void Print(StringBuilder sb, string indent = "")
         {
             sb.Append('(').Append(_operator.Punctuator());
             _operand.Print(sb);
