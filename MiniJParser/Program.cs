@@ -13,7 +13,7 @@ internal class Program
         //    if (token.Type == TokenType.EOF) { break; }
         //}
 
-        Lexer lexer = new Lexer("x - 2 = 10 + 2");
+        Lexer lexer = new Lexer("-x - 2 = 10 + 2");
 
         Parser parser = new Parser(lexer.GetEnumerator());
 
