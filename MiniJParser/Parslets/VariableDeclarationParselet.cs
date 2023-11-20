@@ -11,7 +11,14 @@ namespace MiniJParser.Parslets
     {
         public IExpression Parse(Parser parser, Token token)
         {
-            throw new NotImplementedException();
+            Token identifier = parser.Consume();
+            Token res = parser.Consume();
+            IExpression assignement = null;
+            if (res.Type == TokenType.ASSIGN)
+            {
+                assignement = parser.ParseExpression();
+            }
+            return new VariableDeclarationExpression(identifier.Text, assignement);
         }
     }
 }

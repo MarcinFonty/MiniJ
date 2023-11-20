@@ -9,7 +9,7 @@ namespace MiniJParser.Expressions
 {
     internal class NameExpression : IExpression
     {
-        public string _name { get; }
+        private string _name { get; }
         public NameExpression(string name)
         {
             _name = name;
