@@ -37,20 +37,18 @@ namespace MiniJParser
         public IExpression ParseAllExpression()
         {
             List<IExpression> expressions = new List<IExpression>();
-            try
-            {
-                expressions.Add(ParseExpression());
-            }
-            catch (Exception)
-            {
 
-            }
+            expressions.Add(ParseExpression());
+           
         
             //I find this ugly, this is a dirty fix for how I handle VeriableDeclaraton which can consume a semi colom
             if (LookAhead(0).Type == TokenType.SEMICOLON)
             {
                 Consume();
-                expressions.Add(ParseAllExpression());
+                if (LookAhead(0).Type != TokenType.EOF)
+                {
+                    expressions.Add(ParseAllExpression());
+                }
             } else if (LookAhead(0).Type != TokenType.EOF)
             {
                 expressions.Add(ParseAllExpression());
