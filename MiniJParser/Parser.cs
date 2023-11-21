@@ -101,6 +101,17 @@ namespace MiniJParser
             }
         }
 
+        public bool Match(TokenType expected)
+        {
+            Token token = LookAhead(0);
+            if (token.Type != expected)
+            {
+                return false;
+            }
+            Consume();
+            return true;
+        }
+
         public Token Consume(TokenType expected)
         {
             Token token = LookAhead(0);
