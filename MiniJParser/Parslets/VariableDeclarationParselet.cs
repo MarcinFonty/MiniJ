@@ -12,9 +12,8 @@ namespace MiniJParser.Parslets
         public IExpression Parse(Parser parser, Token token) //TODO: Ask Herman, Because of how Consume is used, it breaks ParseAllExpresions as it removes the semicolom.
         {
             Token identifier = parser.Consume(TokenType.IDENTIFIER);
-            Token temp = parser.Consume(); //Here's the problem with the todo above, could be resolved with using lookahead instead of Consume, but lookahead is private and not sure if I should be making it public. Gotta ask Herman.
-            IExpression assignement = null; //^Parser line 49 for where dirty fix is found^ <-- Parser ParseAllExpressions lookahead stuff I do there.
-            if (temp.Type == TokenType.ASSIGN)
+            IExpression assignement = null;
+            if (parser.Match(TokenType.ASSIGN))
             {
                 assignement = parser.ParseExpression();
             }
