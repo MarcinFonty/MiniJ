@@ -67,7 +67,7 @@ namespace MiniJParser
             }
             catch (KeyNotFoundException)
             {
-                //Console.WriteLine("Could not parse \"" + token.Text + "\".");
+                Console.WriteLine("Could not parse \"" + token.Text + "\".");
                 throw;
             }
 
