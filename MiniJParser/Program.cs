@@ -13,10 +13,7 @@ internal class Program
         //    if (token.Type == TokenType.EOF) { break; }
         //}
 
-        Lexer lexer = new Lexer("let a = 12 - 3;" +
-            "let y;" +
-            "x = 33;" +
-            "13 + 9 * 9;");
+        Lexer lexer = new Lexer("function AddFunction(x, y) { let z = x + y; return z;};");
 
         //foreach (Token token in lexer)
         //{
