@@ -41,7 +41,7 @@ namespace MiniJParser
             expressions.Add(ParseExpression());
 
             Consume(TokenType.SEMICOLON);
-            if (TokenType.EOF != LookAhead(0).Type)
+            if ((TokenType.EOF != LookAhead(0).Type) && (TokenType.RIGHT_CURLY_BRACKET != LookAhead(0).Type))
             {
                 expressions.Add(ParseAllExpression());
             }

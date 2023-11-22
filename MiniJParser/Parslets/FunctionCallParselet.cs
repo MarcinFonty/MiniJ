@@ -16,16 +16,16 @@ namespace MiniJParser.Parslets
 
         public IExpression Parse(Parser parser, IExpression left, Token token)
         {
-            List<IExpression> expressions = new List<IExpression>();
-            if (!parser.Match(TokenType.RIGHT_PAREN))
+            List<IExpression> args = new List<IExpression>();
+            if (!parser.Match(TokenType.LEFT_PAREN))
             {
                 do
                 {
-                    expressions.Add(parser.ParseExpression());
+                    args.Add(parser.ParseExpression());
                 } while (parser.Match(TokenType.COMMA));
                 parser.Consume(TokenType.RIGHT_PAREN);
             }
-            return new FunctionCallExpression(left, expressions);
+            return new FunctionCallExpression(left, args);
         }
     }
 }
