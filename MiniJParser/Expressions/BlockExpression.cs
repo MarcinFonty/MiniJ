@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiniJParser.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,9 @@ namespace MiniJParser.Expressions
         public void Print(StringBuilder sb, string indent = "")
         {
             sb.AppendLine("BlockExpression");
-            _expressions.Print(sb, indent + "\t");
+            StringBuilder helperBuilder = new StringBuilder();
+            _expressions.Print(helperBuilder, indent + "\t");
+            sb.AppendIndented(helperBuilder.ToString());
         }
     }
 }
