@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MiniJParser.Expressions
 {
-    internal class AllExpresions : IExpression
+    internal class AllExpressions : IExpression
     {
         private List<IExpression> _expressions;
-        public AllExpresions(List<IExpression> expressions)
+        public AllExpressions(List<IExpression> expressions)
         {
             _expressions = expressions;
         }

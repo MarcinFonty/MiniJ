@@ -46,7 +46,7 @@ namespace MiniJParser
                 expressions.Add(ParseAllExpression());
             }
 
-            return new AllExpresions(expressions);
+            return new AllExpressions(expressions);
         }
         
         public IExpression ParseExpression(int predecece)

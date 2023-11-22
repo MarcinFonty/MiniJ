@@ -1,4 +1,5 @@
 ﻿using MiniJParser;
+using System.Globalization;
 using System.Text;
 
 internal class Program
@@ -15,11 +16,14 @@ internal class Program
 
         //Lexer lexer = new Lexer("function AddFunction(x, y) { let z = x + y; return z;};");
 
-        Lexer lexer = new Lexer("let x = 12;" +
-            "let y;" +
-            "let z = x * y;" +
-            "let g;" +
-            "g = 12 * 8 + 2;");
+        //Lexer lexer = new Lexer("let x = 12;" +
+        //    "let y;" +
+        //    "let z = x * y;" +
+        //    "let g;" +
+        //    "g = 12 * 8 + 2;");
+
+        Lexer lexer = new Lexer("numbers(f, hello, z);" +
+            "let x = 12;");
 
         //foreach (Token token in lexer)
         //{

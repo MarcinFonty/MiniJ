@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MiniJParser.Parslets
 {
-    internal class VariableDeclarationParselet : IPrefixParselet
+    internal class VariableDeclarationParselet : IPrefixParselet //TODO: Unsure if this should be an infix or a prefix thing.
     {
-        public IExpression Parse(Parser parser, Token token) //TODO: Ask Herman, Because of how Consume is used, it breaks ParseAllExpresions as it removes the semicolom.
+        public IExpression Parse(Parser parser, Token token)
         {
             Token identifier = parser.Consume(TokenType.IDENTIFIER);
             IExpression assignement = null;
