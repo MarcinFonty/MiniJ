@@ -19,7 +19,7 @@ namespace MiniJParser.Expressions
             sb.AppendLine("BlockExpression");
             StringBuilder helperBuilder = new StringBuilder();
             _expressions.Print(helperBuilder, indent + "\t");
-            sb.AppendIndented(helperBuilder.ToString());
+            sb.AppendIndented(helperBuilder.ToString(), indent);
         }
     }
 }
