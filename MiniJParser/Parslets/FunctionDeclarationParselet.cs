@@ -9,10 +9,31 @@ namespace MiniJParser.Parslets
 {
     internal class FunctionDeclarationParselet : IPrefixParselet
     {
-        public IExpression Parse(Parser parser, Token token) //TODO: by far not done
+        public IExpression Parse(Parser parser, Token token)
         {
             Token identifier = parser.Consume(TokenType.IDENTIFIER);
-            throw new NotImplementedException();
+            parser.Consume(TokenType.LEFT_PAREN);
+
+            List<IExpression> args = new List<IExpression>(); //Duplicate code from FunctionCallParselet, but I think this much duplication is ok.
+            if (!parser.Match(TokenType.RIGHT_PAREN))
+            {
+                do
+                {
+                    args.Add(parser.ParseExpression());
+                } while (parser.Match(TokenType.COMMA));
+                parser.Consume(TokenType.RIGHT_PAREN);
+            }
+
+            parser.Consume(TokenType.LEFT_CURLY_BRACKET);
+
+            IExpression expressions = null;
+            if (!parser.Match(TokenType.RIGHT_CURLY_BRACKET)) //Duplicate code from BlockParselet, but I think this much duplication is ok.
+            {
+                expressions = parser.ParseAllExpression();
+                parser.Consume(TokenType.RIGHT_CURLY_BRACKET);
+            }
+
+            return new FunctionDeclarationExpression(identifier.Text, args, expressions);
         }
     }
 }

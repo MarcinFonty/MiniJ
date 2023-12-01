@@ -22,14 +22,7 @@ internal class Program
         //    "let g;" +
         //    "g = 12 * 8 + 2;");
 
-        Lexer lexer = new Lexer("2*3;" +
-            "let x = { let x = 12;" +
-            "let y;" +
-            "x = 33; };" +
-            "let z;" +
-            "{let uuuu;" +
-            "let gggg;};" +
-            "21 + 3';");
+        Lexer lexer = new Lexer("function HelloWorld(y) { let x = 12; let result = x + y; };");
 
         //foreach (Token token in lexer)
         //{
