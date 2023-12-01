@@ -17,7 +17,7 @@ namespace MiniJParser.Parslets
         public IExpression Parse(Parser parser, IExpression left, Token token)
         {
             List<IExpression> args = new List<IExpression>();
-            if (!parser.Match(TokenType.LEFT_PAREN))
+            if (!parser.Match(TokenType.RIGHT_PAREN))
             {
                 do
                 {
