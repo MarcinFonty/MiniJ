@@ -17,8 +17,8 @@ namespace MiniJParser
 
         public void DoRegistration()
         {
+            _parser.Register(TokenType.ASSIGN, new AssignParselet());
             _parser.Register(TokenType.LEFT_CURLY_BRACKET, new BlockParselet());
-
             _parser.Register(TokenType.LEFT_PAREN, new FunctionCallParselet());
             _parser.Register(TokenType.LET, new VariableDeclarationParselet());
             _parser.Register(TokenType.LITERAL, new NameParselet());
@@ -32,7 +32,6 @@ namespace MiniJParser
             InfixLeft(TokenType.ASTERISK, (int)Precedence.PRODUCT);
             InfixLeft(TokenType.SLASH, (int)Precedence.PRODUCT);
             InfixRight(TokenType.CARET, (int)Precedence.EXPONENT);
-            InfixRight(TokenType.ASSIGN, (int)Precedence.ASSIGNMENT);
         }
 
         public void Prefix(TokenType token, int precedence)

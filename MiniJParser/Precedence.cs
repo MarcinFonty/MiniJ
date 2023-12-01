@@ -8,13 +8,13 @@ namespace MiniJParser
 {
     internal enum Precedence
     {
-        ASSIGNMENT = 1,
-        CONDITIONAL = 2,
-        SUM = 3,
-        PRODUCT = 4,
-        EXPONENT = 5,
-        PREFIX = 6,
-        POSTFIX = 7,
-        CALL = 8
+        ASSIGNMENT = 2,
+        CONDITIONAL = 3,
+        SUM = 4,
+        PRODUCT = 5,
+        EXPONENT = 6,
+        PREFIX = 7,
+        POSTFIX = 8,
+        CALL = 9
     }
 }
