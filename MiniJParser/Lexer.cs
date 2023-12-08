@@ -8,7 +8,8 @@ namespace MiniJParser
     {
         private readonly string _text;
         private int _index;
-        private readonly Dictionary<char, TokenType> mPunctuators = new Dictionary<char, TokenType>();
+        private readonly Dictionary<char, TokenType> _punctuators = new Dictionary<char, TokenType>();
+        private readonly Dictionary<string, TokenType> _keywords = new Dictionary<string, TokenType>();
 
         public Lexer(string text)
         {
@@ -21,9 +22,17 @@ namespace MiniJParser
                 char punctuator = type.Punctuator();
                 if (punctuator != '\0')
                 {
-                    mPunctuators[punctuator] = type;
+                    _punctuators[punctuator] = type;
                 }
             }
+
+            _keywords["let"] = TokenType.LET;
+            _keywords["const"] = TokenType.CONSTANT;
+            _keywords["if"] = TokenType.IF;
+            _keywords["else"] = TokenType.ELSE;
+            _keywords["for"] = TokenType.FOR;
+            _keywords["function"] = TokenType.FUNCTION;
+            _keywords["return"] = TokenType.RETURN;
         }
 
         public IEnumerator<Token> GetEnumerator()
@@ -32,10 +41,10 @@ namespace MiniJParser
             {
                 char c = _text[_index++];
 
-                if (mPunctuators.ContainsKey(c))
+                if (_punctuators.ContainsKey(c))
                 {
                     // Handle punctuation.
-                    yield return new Token(mPunctuators[c], c.ToString());
+                    yield return new Token(_punctuators[c], c.ToString());
                 }
                 else if (c == '"')
                 {
@@ -71,7 +80,7 @@ namespace MiniJParser
                 }
                 else if (char.IsLetter(c))
                 {
-                    // Handle literals.
+                    // Handle indentifiers.
                     int start = _index - 1;
                     while (_index < _text.Length && (char.IsLetter(_text[_index]) || char.IsDigit(_text[_index])))
                     {
@@ -80,9 +89,9 @@ namespace MiniJParser
 
                     string identifier = _text.Substring(start, _index - start);
 
-                    if (TokenTypeExtensions.Keywords.Contains(identifier))
+                    if (_keywords.ContainsKey(identifier))
                     {
-                        yield return new Token(TokenType.KEYWORD, identifier);
+                        yield return new Token(_keywords[identifier], identifier);
                     } 
                     else
                     {

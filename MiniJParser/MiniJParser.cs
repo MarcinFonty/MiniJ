@@ -17,8 +17,14 @@ namespace MiniJParser
 
         public void DoRegistration()
         {
+            _parser.Register(TokenType.FUNCTION, new FunctionDeclarationParselet());
+            
+            _parser.Register(TokenType.ASSIGN, new AssignParselet());
+            _parser.Register(TokenType.LEFT_CURLY_BRACKET, new BlockParselet());
+            _parser.Register(TokenType.LEFT_PAREN, new FunctionCallParselet());
+            _parser.Register(TokenType.LET, new VariableDeclarationParselet());
             _parser.Register(TokenType.LITERAL, new NameParselet());
-            //_parser.Register(TokenType.DIGIT, new NameParselet());
+            _parser.Register(TokenType.IDENTIFIER, new NameParselet());
             Prefix(TokenType.PLUS, (int)Precedence.PREFIX);
             Prefix(TokenType.MINUS, (int)Precedence.PREFIX);
             Prefix(TokenType.TILDE, (int)Precedence.PREFIX);

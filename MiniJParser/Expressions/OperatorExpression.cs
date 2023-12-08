@@ -17,13 +17,19 @@ namespace MiniJParser.Expressions
             _operator = operatoR;
             _right = right;
         }
-        public void Print(StringBuilder sb)
+        public void Print(StringBuilder sb, string indent = "")
         {
-            sb.Append('(');
-            _left.Print(sb);
-            sb.Append(' ').Append(_operator.Punctuator()).Append(' ');
-            _right.Print(sb);
-            sb.Append(")");
+            sb.AppendLine("OperatorExpression");
+
+            sb.Append(indent).Append("- left ");
+            _left.Print(sb, indent + "\t");
+            sb.AppendLine();
+
+            sb.Append(indent + "- operator " + _operator.Punctuator());
+            sb.AppendLine();
+
+            sb.Append(indent).Append("- right ");
+            _right.Print(sb, indent + "\t");
         }
     }
 }

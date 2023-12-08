@@ -11,11 +11,15 @@ namespace MiniJParser.Expressions
             _operator = operatoR;
             _operand = operand;
         }
-        public void Print(StringBuilder sb)
+        public void Print(StringBuilder sb, string indent = "")
         {
-            sb.Append('(').Append(_operator.Punctuator());
-            _operand.Print(sb);
-            sb.Append(")");
+            sb.AppendLine("PrefixExpression");
+
+            sb.Append(indent).Append("- operator " + _operator.Punctuator());
+            sb.AppendLine();
+
+            sb.Append(indent).Append("- operant ");
+            _operand.Print(sb, indent + "\t");
         }
     }
 }

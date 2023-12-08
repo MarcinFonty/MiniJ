@@ -3,6 +3,7 @@ using MiniJParser.Parslets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +32,21 @@ namespace MiniJParser
         public void Register(TokenType token, IInfixParselet infix)
         {
             _infixParselet.Add(token, infix);
+        }
+
+        public IExpression ParseAllExpression()
+        {
+            List<IExpression> expressions = new List<IExpression>();
+
+            expressions.Add(ParseExpression());
+
+            Consume(TokenType.SEMICOLON);
+            if ((TokenType.EOF != LookAhead(0).Type) && (TokenType.RIGHT_CURLY_BRACKET != LookAhead(0).Type))
+            {
+                expressions.Add(ParseAllExpression());
+            }
+
+            return new AllExpressions(expressions);
         }
         
         public IExpression ParseExpression(int predecece)
@@ -78,6 +94,17 @@ namespace MiniJParser
             }
         }
 
+        public bool Match(TokenType expected)
+        {
+            Token token = LookAhead(0);
+            if (token.Type != expected)
+            {
+                return false;
+            }
+            Consume();
+            return true;
+        }
+
         public Token Consume(TokenType expected)
         {
             Token token = LookAhead(0);
@@ -105,8 +132,7 @@ namespace MiniJParser
         //Only adds to mRead if you want to look up further than you already did before.
         private Token LookAhead(int distance)
         {
-            // Read in as many as needed.
-            while (distance >= _read.Count) //TODO: I have a feeling like the mRead state should be reset or at least moven forward once the parsing process processes. But unsure for now.
+            while (distance >= _read.Count)
             {
                 if (_tokens.MoveNext())
                 {
