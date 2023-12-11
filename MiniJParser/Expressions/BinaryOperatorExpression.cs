@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MiniJParser.Expressions
 {
-    internal class OperatorExpression : IExpression
+    internal class BinaryOperatorExpression : IExpression
     {
         private IExpression _left {  get; }
         private TokenType _operator {  get; }
         private IExpression _right { get; }
-        public OperatorExpression(IExpression left, TokenType operatoR, IExpression right)
+        public BinaryOperatorExpression(IExpression left, TokenType operatoR, IExpression right)
         {
             _left = left;
             _operator = operatoR;
