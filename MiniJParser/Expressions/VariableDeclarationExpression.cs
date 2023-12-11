@@ -8,13 +8,19 @@ namespace MiniJParser.Expressions
 {
     internal class VariableDeclarationExpression : IExpression
     {
-        private string _variableName;
-        private IExpression _variableValue;
+        public string _variableName;
+        public IExpression _variableValue;
         public VariableDeclarationExpression(string variableName, IExpression variableValue)
         {
             _variableName = variableName;
             _variableValue = variableValue;
         }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.visitVariableDeclarationExpression(this);
+        }
+
         public void Print(StringBuilder sb, string indent = "")
         {
             sb.AppendLine("VariableDeclarationExpression");

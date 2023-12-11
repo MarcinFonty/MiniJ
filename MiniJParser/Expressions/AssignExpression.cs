@@ -8,8 +8,8 @@ namespace MiniJParser.Expressions
 {
     internal class AssignExpression : IExpression
     {
-        private string _name {  get; }
-        private IExpression _right { get; }
+        public string _name {  get; }
+        public IExpression _right { get; }
         public AssignExpression(string name, IExpression right)
         {
             _name = name;
@@ -23,6 +23,11 @@ namespace MiniJParser.Expressions
 
             sb.Append(indent).Append("- value ");
             _right.Print(sb, indent + "\t");
+        }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.VisitAssignExpression(this);
         }
     }
 }

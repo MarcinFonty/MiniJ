@@ -13,6 +13,12 @@ namespace MiniJParser.Expressions
         {
             _expressions = expressions;
         }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.VisitAllExpressions(this);
+        }
+
         public void Print(StringBuilder sb, string indent = "")
         {
             foreach (IExpression expression in _expressions)

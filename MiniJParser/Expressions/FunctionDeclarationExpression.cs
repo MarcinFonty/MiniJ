@@ -10,15 +10,21 @@ namespace MiniJParser.Expressions
 {
     internal class FunctionDeclarationExpression : IExpression
     {
-        private string _name;
-        private List<IExpression> _parameterExpressions;
-        private IExpression _blockExpressions;
+        public string _name;
+        public List<IExpression> _parameterExpressions;
+        public IExpression _blockExpressions;
         public FunctionDeclarationExpression(string name, List<IExpression> parameterExpressions, IExpression blockExpressions)
         {
             _name = name;
             _parameterExpressions = parameterExpressions;
             _blockExpressions = blockExpressions;
         }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.VisitFunctionDeclarationExpression(this);
+        }
+
         public void Print(StringBuilder sb, string indent = "")
         {
             sb.AppendLine("FunctionDeclarationExpression");

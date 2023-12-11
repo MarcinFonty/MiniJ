@@ -8,13 +8,19 @@ namespace MiniJParser.Expressions
 {
     internal class FunctionCallExpression : IExpression
     {
-        private readonly IExpression _functionName;
-        private readonly List<IExpression> _argumentsExpressions;
+        public readonly IExpression _functionName;
+        public readonly List<IExpression> _argumentsExpressions;
         public FunctionCallExpression(IExpression functionName, List<IExpression> argumentExpressions)
         {
             _functionName = functionName;
             _argumentsExpressions = argumentExpressions;
         }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.VisitFunctionCallExpression(this);
+        }
+
         public void Print(StringBuilder sb, string indent = "")
         {
             sb.AppendLine("FunctionCallExpression");

@@ -37,13 +37,5 @@ internal class Program
         StringBuilder sb = new StringBuilder();
         result.Print(sb);
         Console.WriteLine(sb.ToString());
-
-
-        LLVMIRGenerator generator = new LLVMIRGenerator();
-        var result2 = (AllExpressions)result;
-        foreach (IExpression expression in result2._expressions)
-        {
-            generator.GenerateIR(expression);
-        }
     }
 }

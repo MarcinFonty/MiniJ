@@ -8,9 +8,9 @@ namespace MiniJParser.Expressions
 {
     internal class BinaryOperatorExpression : IExpression
     {
-        private IExpression _left {  get; }
-        private TokenType _operator {  get; }
-        private IExpression _right { get; }
+        public IExpression _left {  get; }
+        public TokenType _operator {  get; }
+        public IExpression _right { get; }
         public BinaryOperatorExpression(IExpression left, TokenType operatoR, IExpression right)
         {
             _left = left;
@@ -30,6 +30,11 @@ namespace MiniJParser.Expressions
 
             sb.Append(indent).Append("- right ");
             _right.Print(sb, indent + "\t");
+        }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.VisitBinaryOperationExpression(this);
         }
     }
 }

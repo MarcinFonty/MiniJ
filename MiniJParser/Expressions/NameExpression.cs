@@ -19,5 +19,10 @@ namespace MiniJParser.Expressions
         {
             sb.Append(_name);
         }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.VisitNameExpression(this);
+        }
     }
 }

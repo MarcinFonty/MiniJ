@@ -9,11 +9,17 @@ namespace MiniJParser.Expressions
 {
     internal class BlockExpression : IExpression //This one is basicaly just AllExpressions, but adds the "BlockExpression"
     {
-        private readonly IExpression _expressions;
+        public readonly IExpression _expressions;
         public BlockExpression(IExpression expressions)
         {
             _expressions = expressions;
         }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.VisitBlockExpression(this);
+        }
+
         public void Print(StringBuilder sb, string indent = "")
         {
             sb.AppendLine("BlockExpression");

@@ -8,8 +8,8 @@ namespace MiniJParser.Expressions
 {
     internal class PostfixExpression : IExpression
     {
-        private IExpression _left { get; }
-        private TokenType _operator { get; }
+        public IExpression _left { get; }
+        public TokenType _operator { get; }
         public PostfixExpression(IExpression left, TokenType operatoR)
         {
             _left = left;
@@ -21,6 +21,11 @@ namespace MiniJParser.Expressions
             sb.Append('(');
             _left.Print(sb);
             sb.Append(_operator.Punctuator()).Append(')');
+        }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.VisitPostfixExpression(this);
         }
     }
 }

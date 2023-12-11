@@ -7,32 +7,59 @@ using System.Threading.Tasks;
 
 namespace MiniJParser
 {
-    internal class LLVMIRGenerator //this is a form of tge visitor pattern, as it receives the IExpression objects to generate the IR instead of having this logic inside the expressions.
+    internal class LLVMIRGenerator : IVisitor
     {
-        public string GenerateIR(IExpression root)
+        public void VisitAllExpressions(AllExpressions allExpressions)
         {
-            switch (root)
-            {
-                case AssignExpression assign when assign != null:
-                    GenerateForAssignExpression(assign);
-                    break;
-                case BlockExpression block when block != null:
-                case ConditionalExpression conditional when conditional != null:
-                case FunctionCallExpression functionCall when functionCall != null:
-                case FunctionDeclarationExpression functionDeclaration when functionDeclaration != null:
-                case NameExpression name when name != null:
-                case BinaryOperatorExpression binaryOperator when binaryOperator != null:
-                case PostfixExpression postfix when postfix != null:
-                case PrefixExpression prefix when prefix != null:
-                case VariableDeclarationExpression variableDeclaration when variableDeclaration != null:
-                    throw new NotImplementedException();
-                default:
-                    throw new Exception("Not recognized/registered expression to make IR from");
-            }
             throw new NotImplementedException();
         }
 
-        private string GenerateForAssignExpression(AssignExpression assign)
+        public void VisitAssignExpression(AssignExpression assignExpression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VisitBinaryOperationExpression(BinaryOperatorExpression binaryOperator)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VisitBlockExpression(BlockExpression blockExpression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VisitConditionalExpression(ConditionalExpression conditionalExpression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VisitFunctionCallExpression(FunctionCallExpression callFunctionCallExpression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VisitFunctionDeclarationExpression(FunctionDeclarationExpression functionDeclaration)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VisitNameExpression(NameExpression nameExpression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VisitPostfixExpression(PostfixExpression postfixExpression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VisitPrefixExpression(PrefixExpression prefix)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void visitVariableDeclarationExpression(VariableDeclarationExpression variableDeclarationExpression)
         {
             throw new NotImplementedException();
         }

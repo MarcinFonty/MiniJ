@@ -29,5 +29,10 @@ namespace MiniJParser.Expressions
             _elseArm.Print(sb);
             sb.Append(")");
         }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.VisitConditionalExpression(this);
+        }
     }
 }

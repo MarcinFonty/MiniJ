@@ -4,8 +4,8 @@ namespace MiniJParser.Expressions
 {
     internal class PrefixExpression : IExpression //TODO: needs to be revisited later
     {
-        private TokenType _operator { get; }
-        private IExpression _operand { get; }
+        public TokenType _operator { get; }
+        public IExpression _operand { get; }
         public PrefixExpression(TokenType operatoR, IExpression operand)
         {
             _operator = operatoR;
@@ -20,6 +20,11 @@ namespace MiniJParser.Expressions
 
             sb.Append(indent).Append("- operant ");
             _operand.Print(sb, indent + "\t");
+        }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.VisitPrefixExpression(this);
         }
     }
 }

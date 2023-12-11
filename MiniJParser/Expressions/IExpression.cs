@@ -9,5 +9,6 @@ namespace MiniJParser.Expressions
     internal interface IExpression
     {
         public void Print(StringBuilder sb, string indent = "");
+        public void AcceptVisitor(IVisitor visitor);
     }
 }
