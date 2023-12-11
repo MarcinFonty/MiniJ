@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MiniJParser.Expressions
 {
-    internal class BlockExpression : IExpression
+    internal class BlockExpression : IExpression //This one is basicaly just AllExpressions, but adds the "BlockExpression"
     {
         private readonly IExpression _expressions;
         public BlockExpression(IExpression expressions)

@@ -8,7 +8,7 @@ namespace MiniJParser.Expressions
 {
     internal class AllExpressions : IExpression
     {
-        private List<IExpression> _expressions;
+        public List<IExpression> _expressions;
         public AllExpressions(List<IExpression> expressions)
         {
             _expressions = expressions;

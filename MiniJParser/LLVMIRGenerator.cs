@@ -27,7 +27,7 @@ namespace MiniJParser
                 case VariableDeclarationExpression variableDeclaration when variableDeclaration != null:
                     throw new NotImplementedException();
                 default:
-                    throw new Exception("Not recognized/registered expression");
+                    throw new Exception("Not recognized/registered expression to make IR from");
             }
             throw new NotImplementedException();
         }
