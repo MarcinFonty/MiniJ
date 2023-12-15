@@ -10,6 +10,7 @@ namespace MiniJParser
         private int _index;
         private readonly Dictionary<char, TokenType> _punctuators = new Dictionary<char, TokenType>();
         private readonly Dictionary<string, TokenType> _keywords = new Dictionary<string, TokenType>();
+        private readonly Dictionary<string, TokenType> _combineToken = new Dictionary<string, TokenType>();
 
         public Lexer(string text)
         {
@@ -33,9 +34,15 @@ namespace MiniJParser
             _keywords["for"] = TokenType.FOR;
             _keywords["function"] = TokenType.FUNCTION;
             _keywords["return"] = TokenType.RETURN;
+
+            _combineToken["+="] = TokenType.PLUS_EQUAL;
+            _combineToken["-="] = TokenType.MINUS_EQUAL;
+            _combineToken[">="] = TokenType.LESSER_OR_EQUAL;
+            _combineToken["<="] = TokenType.GREATER_OR_EQUAL;
+            _combineToken["=="] = TokenType.EQUAL;
         }
 
-        public IEnumerator<Token> GetEnumerator()
+        public IEnumerator<Token> GetEnumerator() //+ - < > = 
         {
             while (_index < _text.Length)
             {
@@ -43,8 +50,28 @@ namespace MiniJParser
 
                 if (_punctuators.ContainsKey(c))
                 {
-                    // Handle punctuation.
-                    yield return new Token(_punctuators[c], c.ToString());
+                    switch (c)
+                    {
+                        case '+':
+                        case '-':
+                        case '<':
+                        case '>':
+                        case '=':
+                            if (_text[_index] == '=')
+                            {
+                                _index++;
+                                string temp = string.Concat(c, '=');
+                                yield return new Token(_combineToken[temp], temp);
+                            }
+                            else
+                            {
+                                yield return new Token(_punctuators[c], c.ToString());
+                            }
+                            break;
+                        default:
+                            yield return new Token(_punctuators[c], c.ToString());
+                            break;
+                    }
                 }
                 else if (c == '"')
                 {

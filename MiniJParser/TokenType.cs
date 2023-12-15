@@ -8,6 +8,12 @@ namespace MiniJParser
 {
     public enum TokenType
     {
+        PLUS_EQUAL,
+        MINUS_EQUAL,
+        LESSER_OR_EQUAL,
+        GREATER_OR_EQUAL,
+        EQUAL,
+
         LEFT_CURLY_BRACKET,
         RIGHT_CURLY_BRACKET,
         LEFT_SQUARE_BRACKET,
@@ -18,8 +24,6 @@ namespace MiniJParser
         //MINUS_ASSING,
         LESS_THAN,
         GREATER_THAN,
-        //LESSER_OR_EQUAL,
-        //GREATER_OR_EQUAL,
         //PLUS_PLUS,
         //MINUS_MINUS,
 
