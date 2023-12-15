@@ -8,6 +8,8 @@ namespace MiniJParser
 {
     public enum TokenType
     {
+        DOT,
+
         PLUS_EQUAL,
         MINUS_EQUAL,
         LESSER_OR_EQUAL,
@@ -70,6 +72,8 @@ namespace MiniJParser
         {
             switch (type)
             {
+                case TokenType.DOT:
+                    return '.';
                 case TokenType.LEFT_CURLY_BRACKET:
                     return '{';
 
