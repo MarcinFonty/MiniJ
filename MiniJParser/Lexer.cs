@@ -42,7 +42,7 @@ namespace MiniJParser
             _combineToken["=="] = TokenType.EQUAL;
         }
 
-        public IEnumerator<Token> GetEnumerator() //+ - < > = 
+        public IEnumerator<Token> GetEnumerator()
         {
             while (_index < _text.Length)
             {
@@ -50,31 +50,20 @@ namespace MiniJParser
 
                 if (_punctuators.ContainsKey(c))
                 {
-                    switch (c)
+                    if (_text[_index] == '=')
                     {
-                        case '+':
-                        case '-':
-                        case '<':
-                        case '>':
-                        case '=':
-                            if (_text[_index] == '=')
-                            {
-                                _index++;
-                                string temp = string.Concat(c, '=');
-                                yield return new Token(_combineToken[temp], temp);
-                            }
-                            else
-                            {
-                                yield return new Token(_punctuators[c], c.ToString());
-                            }
-                            break;
-                        default:
-                            yield return new Token(_punctuators[c], c.ToString());
-                            break;
+                        _index++;
+                        string temp = string.Concat(c, '=');
+                        yield return new Token(_combineToken[temp], temp);
+                    }
+                    else
+                    {
+                        yield return new Token(_punctuators[c], c.ToString());
                     }
                 }
                 else if (c == '"')
                 {
+                    //handle strings
                     int start = _index -1;
                     while (_index < _text.Length && _text[_index] != '"')
                     {
