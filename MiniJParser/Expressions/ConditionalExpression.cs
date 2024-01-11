@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LLVMSharp.Interop;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,9 +31,9 @@ namespace MiniJParser.Expressions
             sb.Append(")");
         }
 
-        public void AcceptVisitor(IVisitor visitor)
+        public LLVMValueRef AcceptVisitor(IVisitor visitor)
         {
-            visitor.VisitConditionalExpression(this);
+            return visitor.VisitConditionalExpression(this);
         }
     }
 }

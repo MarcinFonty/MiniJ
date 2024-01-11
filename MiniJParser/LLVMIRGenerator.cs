@@ -64,8 +64,10 @@ namespace MiniJParser
             LLVMTypeRef funcType = LLVM.FunctionType(LLVM.Int32Type(), paramTypesPtr, (uint)paramTypes.Length, 0);
             sbyte* mainFuncName = StringToSBytePointer("BinaryFunction");
             LLVMValueRef mainFunc = LLVM.AddFunction(_module, mainFuncName, funcType);
+            FreeSBytePointer(mainFuncName);
             sbyte* entryBlockName = StringToSBytePointer("entry");
             LLVMBasicBlockRef entryBlock = LLVM.AppendBasicBlock(mainFunc, entryBlockName);
+            FreeSBytePointer(entryBlockName);
 
             // Create a builder for generating instructions
             LLVMBuilderRef builder = LLVM.CreateBuilder();
@@ -75,8 +77,10 @@ namespace MiniJParser
             LLVMTypeRef intType = LLVM.Int32Type();
             sbyte* leftArm = StringToSBytePointer("leftArm");
             LLVMValueRef left = LLVM.BuildAlloca(builder, intType, leftArm);
+            FreeSBytePointer(leftArm);
             sbyte* rightArm = StringToSBytePointer("rightArm");
             LLVMValueRef right = LLVM.BuildAlloca(builder, intType, rightArm);
+            FreeSBytePointer(rightArm);
 
             // Initialize one variable with a value (let's say 5)
             LLVM.BuildStore(builder, LLVM.ConstInt(intType, 5, 0), left);
@@ -87,8 +91,10 @@ namespace MiniJParser
             // Load the values of the variables
             sbyte* value1 = StringToSBytePointer("val1");
             LLVMValueRef val1 = LLVM.BuildLoad2(builder, intType, left, value1);
+            FreeSBytePointer(value1);
             sbyte* value2 = StringToSBytePointer("val2");
             LLVMValueRef val2 = LLVM.BuildLoad2(builder, intType, right, value2);
+            FreeSBytePointer(value2);
 
             LLVMValueRef result = null;
 
@@ -123,15 +129,7 @@ namespace MiniJParser
             // Generate the return instruction
             LLVM.BuildRet(builder, result);
 
-            // Clean up
             LLVM.DisposeBuilder(builder);
-
-            FreeSBytePointer(mainFuncName);
-            FreeSBytePointer(entryBlockName);
-            FreeSBytePointer(leftArm);
-            FreeSBytePointer(rightArm);
-            FreeSBytePointer(value1);
-            FreeSBytePointer(value2);
 
             return null;
         }

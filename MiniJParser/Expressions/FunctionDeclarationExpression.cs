@@ -1,4 +1,5 @@
-﻿using MiniJParser.Helpers;
+﻿using LLVMSharp.Interop;
+using MiniJParser.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,9 @@ namespace MiniJParser.Expressions
             _blockExpressions = blockExpressions;
         }
 
-        public void AcceptVisitor(IVisitor visitor)
+        public LLVMValueRef AcceptVisitor(IVisitor visitor)
         {
-            visitor.VisitFunctionDeclarationExpression(this);
+            return visitor.VisitFunctionDeclarationExpression(this);
         }
 
         public void Print(StringBuilder sb, string indent = "")

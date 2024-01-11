@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LLVMSharp.Interop;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,9 +24,9 @@ namespace MiniJParser.Expressions
             sb.Append(_operator.Punctuator()).Append(')');
         }
 
-        public void AcceptVisitor(IVisitor visitor)
+        public LLVMValueRef AcceptVisitor(IVisitor visitor)
         {
-            visitor.VisitPostfixExpression(this);
+            return visitor.VisitPostfixExpression(this);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using LLVMSharp.Interop;
+using System.Text;
 
 namespace MiniJParser.Expressions
 {
@@ -22,9 +23,9 @@ namespace MiniJParser.Expressions
             _operand.Print(sb, indent + "\t");
         }
 
-        public void AcceptVisitor(IVisitor visitor)
+        public LLVMValueRef AcceptVisitor(IVisitor visitor)
         {
-            visitor.VisitPrefixExpression(this);
+            return visitor.VisitPrefixExpression(this);
         }
     }
 }
