@@ -82,19 +82,9 @@ namespace MiniJParser
             LLVMValueRef right = LLVM.BuildAlloca(builder, intType, rightArm);
             FreeSBytePointer(rightArm);
 
-            // Initialize one variable with a value (let's say 5)
-            LLVM.BuildStore(builder, LLVM.ConstInt(intType, 5, 0), left);
-
-            // Assign a value to the second variable (let's say 7)
-            LLVM.BuildStore(builder, LLVM.ConstInt(intType, 7, 0), right);
-
             // Load the values of the variables
-            sbyte* value1 = StringToSBytePointer("val1");
-            LLVMValueRef val1 = LLVM.BuildLoad2(builder, intType, left, value1);
-            FreeSBytePointer(value1);
-            sbyte* value2 = StringToSBytePointer("val2");
-            LLVMValueRef val2 = LLVM.BuildLoad2(builder, intType, right, value2);
-            FreeSBytePointer(value2);
+            LLVMValueRef leftValue = binaryOperator._left.AcceptVisitor(this);
+            LLVMValueRef rightValue = binaryOperator._right.AcceptVisitor(this);
 
             LLVMValueRef result = null;
 
@@ -102,22 +92,22 @@ namespace MiniJParser
             {
                 case TokenType.PLUS:
                     sbyte* addTemp = StringToSBytePointer("addtmp");
-                    result = LLVM.BuildAdd(builder, val1, val2, addTemp);
+                    result = LLVM.BuildAdd(builder, leftValue, rightValue, addTemp);
                     FreeSBytePointer(addTemp);
                     break;
                 case TokenType.MINUS:
                     sbyte* subTemp = StringToSBytePointer("subtmp");
-                    result = LLVM.BuildSub(builder, val1, val2, subTemp);
+                    result = LLVM.BuildSub(builder, leftValue, rightValue, subTemp);
                     FreeSBytePointer(subTemp);
                     break;
                 case TokenType.ASTERISK:
                     sbyte* mulTemp = StringToSBytePointer("multmp");
-                    result = LLVM.BuildMul(builder, val1, val2, mulTemp);
+                    result = LLVM.BuildMul(builder, leftValue, rightValue, mulTemp);
                     FreeSBytePointer(mulTemp);
                     break;
                 case TokenType.SLASH:
                     sbyte* divTemp = StringToSBytePointer("divtmp");
-                    result = LLVM.BuildSDiv(builder, val1, val2, divTemp); // Use BuildSDiv for signed division
+                    result = LLVM.BuildSDiv(builder, leftValue, rightValue, divTemp); // Use BuildSDiv for signed division
                     FreeSBytePointer(divTemp);
                     break;
                 //case TokenType.CARET:
