@@ -63,10 +63,10 @@ namespace MiniJParser
             }
             LLVMTypeRef funcType = LLVM.FunctionType(LLVM.Int32Type(), paramTypesPtr, (uint)paramTypes.Length, 0);
             sbyte* mainFuncName = StringToSBytePointer("BinaryFunction");
-            LLVMValueRef mainFunc = LLVM.AddFunction(_module, mainFuncName, funcType);
+            LLVMValueRef BinaryFunction = LLVM.AddFunction(_module, mainFuncName, funcType);
             FreeSBytePointer(mainFuncName);
             sbyte* entryBlockName = StringToSBytePointer("entry");
-            LLVMBasicBlockRef entryBlock = LLVM.AppendBasicBlock(mainFunc, entryBlockName);
+            LLVMBasicBlockRef entryBlock = LLVM.AppendBasicBlock(BinaryFunction, entryBlockName);
             FreeSBytePointer(entryBlockName);
 
             // Create a builder for generating instructions
@@ -110,6 +110,7 @@ namespace MiniJParser
             // Generate the return instruction
             LLVM.BuildRet(builder, result);
 
+            //LLVM.DeleteFunction(BinaryFunction); <--- Really don't understand this one
             LLVM.DisposeBuilder(builder);
 
             return null;
