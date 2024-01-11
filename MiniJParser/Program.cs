@@ -23,7 +23,9 @@ internal class Program
         //    "let g;" +
         //    "g = 12 * 8 + 2;");
 
-        Lexer lexer = new Lexer("function HelloWorld(y) { let x = 12; let result = x + y; };");
+        //Lexer lexer = new Lexer("function HelloWorld(y) { let x = 12; let result = x + y; };");
+
+        Lexer lexer = new Lexer("9 - 2 + 4 * 12;");
 
         //foreach (Token token in lexer)
         //{
