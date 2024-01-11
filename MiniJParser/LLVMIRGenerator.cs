@@ -73,15 +73,6 @@ namespace MiniJParser
             LLVMBuilderRef builder = LLVM.CreateBuilder();
             LLVM.PositionBuilderAtEnd(builder, entryBlock);
 
-            // Declare two integer variables
-            LLVMTypeRef intType = LLVM.Int32Type();
-            sbyte* leftArm = StringToSBytePointer("leftArm");
-            LLVMValueRef left = LLVM.BuildAlloca(builder, intType, leftArm);
-            FreeSBytePointer(leftArm);
-            sbyte* rightArm = StringToSBytePointer("rightArm");
-            LLVMValueRef right = LLVM.BuildAlloca(builder, intType, rightArm);
-            FreeSBytePointer(rightArm);
-
             // Load the values of the variables
             LLVMValueRef leftValue = binaryOperator._left.AcceptVisitor(this);
             LLVMValueRef rightValue = binaryOperator._right.AcceptVisitor(this);
