@@ -35,9 +35,17 @@ internal class Program
 
         Parser parser = new Parser(lexer.GetEnumerator());
 
-        var result = parser.ParseAllExpression();
-        StringBuilder sb = new StringBuilder();
-        result.Print(sb);
-        Console.WriteLine(sb.ToString());
+        //var result = parser.ParseAllExpression();
+        var result = parser.ParseExpression();
+
+        LLVMIRGenerator generator = LLVMIRGenerator.GetInstance();
+
+        result.AcceptVisitor(generator);
+
+        generator.PrintAndDispose();
+
+        //StringBuilder sb = new StringBuilder();
+        //result.Print(sb);
+        //Console.WriteLine(sb.ToString());
     }
 }

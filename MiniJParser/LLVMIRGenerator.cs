@@ -85,7 +85,7 @@ namespace MiniJParser
             LLVMTypeRef funcType = LLVM.FunctionType(LLVM.Int32Type(), paramTypesPtr, (uint)paramTypes.Length, 0);
             sbyte* mainFuncName = StringToSBytePointer("BinaryFunction");
             LLVMValueRef BinaryFunction = LLVM.AddFunction(_module, mainFuncName, funcType);
-            FreeSBytePointer(mainFuncName);
+            //FreeSBytePointer(mainFuncName); //TODO This one chrashes the parser on it's first recoursion, I wouldn't know why
             sbyte* entryBlockName = StringToSBytePointer("entry");
             LLVMBasicBlockRef entryBlock = LLVM.AppendBasicBlock(BinaryFunction, entryBlockName);
             FreeSBytePointer(entryBlockName);
