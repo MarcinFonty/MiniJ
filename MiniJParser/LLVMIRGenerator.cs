@@ -113,7 +113,7 @@ namespace MiniJParser
             //LLVM.DeleteFunction(BinaryFunction); <--- Really don't understand this one
             LLVM.DisposeBuilder(builder);
 
-            return null;
+            return result;
         }
 
         public LLVMValueRef VisitBlockExpression(BlockExpression blockExpression)
