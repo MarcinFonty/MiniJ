@@ -159,7 +159,14 @@ namespace MiniJParser
 
         public LLVMValueRef VisitNameExpression(NameExpression nameExpression)
         {
-            throw new NotImplementedException();
+            if (Int32.TryParse(nameExpression._name, out int variableValue))
+            {
+                return LLVM.ConstInt(LLVM.Int32Type(), (ulong)variableValue, 0);
+            }
+            else 
+            {
+                throw new Exception("Haven't added strings to the compiler yet, so it only works with integers");
+            }
         }
 
         public LLVMValueRef VisitPostfixExpression(PostfixExpression postfixExpression)
