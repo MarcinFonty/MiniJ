@@ -1,4 +1,5 @@
-﻿using LLVMSharp.Interop;
+﻿using LLVMSharp;
+using LLVMSharp.Interop;
 using MiniJParser.Expressions;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,9 @@ namespace MiniJParser
     internal unsafe class LLVMIRGenerator : IVisitor
     {
         LLVMModuleRef _module { get; set; }
-        public LLVMIRGenerator()
+
+        private static LLVMIRGenerator instance;
+        private LLVMIRGenerator()
         {
 
             // Get the LLVM context
@@ -23,6 +26,24 @@ namespace MiniJParser
             LLVMModuleRef module = LLVM.ModuleCreateWithName(moduleName);
 
             _module = module;
+        }
+
+        public static LLVMIRGenerator GetInstance() //Singelton pattern
+        {
+            if (instance == null)
+            {
+                instance = new LLVMIRGenerator();
+            }
+            return instance;
+        }
+
+        public void PrintAndDispose()
+        {
+            // Print the LLVM IR
+            LLVM.DumpModule(_module);
+
+            // Clean up
+            LLVM.DisposeModule(_module);
         }
 
         public sbyte* StringToSBytePointer(string input)
