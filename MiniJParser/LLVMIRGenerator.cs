@@ -48,13 +48,7 @@ namespace MiniJParser
 
         public sbyte* StringToSBytePointer(string input)
         {
-            int length = Encoding.ASCII.GetByteCount(input);
-            byte[] byteArray = new byte[length + 1]; // +1 for null termination
-            Encoding.ASCII.GetBytes(input, 0, input.Length, byteArray, 0);
-            fixed (byte* p = byteArray)
-            {
-                return (sbyte*)p;
-            }
+            return (sbyte*)Marshal.StringToHGlobalAnsi(input).ToPointer();
         }
 
         public void FreeSBytePointer(sbyte* pointer)
@@ -85,7 +79,7 @@ namespace MiniJParser
             LLVMTypeRef funcType = LLVM.FunctionType(LLVM.Int32Type(), paramTypesPtr, (uint)paramTypes.Length, 0);
             sbyte* mainFuncName = StringToSBytePointer("BinaryFunction");
             LLVMValueRef BinaryFunction = LLVM.AddFunction(_module, mainFuncName, funcType);
-            //FreeSBytePointer(mainFuncName); //TODO This one chrashes the parser on it's first recoursion, I wouldn't know why
+            FreeSBytePointer(mainFuncName);
             sbyte* entryBlockName = StringToSBytePointer("entry");
             LLVMBasicBlockRef entryBlock = LLVM.AppendBasicBlock(BinaryFunction, entryBlockName);
             FreeSBytePointer(entryBlockName);
