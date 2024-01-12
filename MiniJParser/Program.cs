@@ -38,14 +38,17 @@ internal class Program
         //var result = parser.ParseAllExpression();
         var result = parser.ParseExpression();
 
+        Console.WriteLine("Here comes the AST");
+        Console.WriteLine();
+        StringBuilder sb = new StringBuilder();
+        result.Print(sb);
+        Console.WriteLine(sb.ToString());
+
+        Console.WriteLine();
+        Console.WriteLine("Here comes generated LLVM IR");
+        Console.WriteLine();
         LLVMIRGenerator generator = LLVMIRGenerator.GetInstance();
-
         result.AcceptVisitor(generator);
-
         generator.PrintAndDispose();
-
-        //StringBuilder sb = new StringBuilder();
-        //result.Print(sb);
-        //Console.WriteLine(sb.ToString());
     }
 }
