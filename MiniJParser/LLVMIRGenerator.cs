@@ -92,26 +92,26 @@ namespace MiniJParser
             LLVMValueRef leftValue = binaryOperator._left.AcceptVisitor(this);
             LLVMValueRef rightValue = binaryOperator._right.AcceptVisitor(this);
 
-            ////////////////// Check if leftValue is a function
-            ////////////////bool isLeftFunction = LLVM.IsAFunction(leftValue) != default(IntPtr*);
+            // Check if leftValue is a function
+            bool isLeftFunction = LLVM.IsAFunction(leftValue) != default(IntPtr*);
 
-            ////////////////// Check if rightValue is a function
-            ////////////////bool isRightFunction = LLVM.IsAFunction(rightValue) != default(IntPtr*);
+            // Check if rightValue is a function
+            bool isRightFunction = LLVM.IsAFunction(rightValue) != default(IntPtr*);
 
-            ////////////////// Make function calls if necessary
-            ////////////////if (isLeftFunction)
-            ////////////////{
-            ////////////////    sbyte* leftCall = StringToSBytePointer("leftCall");
-            ////////////////    leftValue = LLVM.BuildCall2(builder, funcType, leftValue, null, 0, leftCall);
-            ////////////////    FreeSBytePointer(leftCall);
-            ////////////////}
+            // Make function calls if necessary
+            if (isLeftFunction)
+            {
+                sbyte* leftCall = StringToSBytePointer("leftCall");
+                leftValue = LLVM.BuildCall2(builder, funcType, leftValue, null, 0, leftCall);
+                FreeSBytePointer(leftCall);
+            }
 
-            ////////////////if (isRightFunction)
-            ////////////////{
-            ////////////////    sbyte* rightCall = StringToSBytePointer("rightCall");
-            ////////////////    rightValue = LLVM.BuildCall2(builder, funcType, rightValue, null, 0, rightCall);
-            ////////////////    FreeSBytePointer(rightCall);
-            ////////////////}
+            if (isRightFunction)
+            {
+                sbyte* rightCall = StringToSBytePointer("rightCall");
+                rightValue = LLVM.BuildCall2(builder, funcType, rightValue, null, 0, rightCall);
+                FreeSBytePointer(rightCall);
+            }
 
             LLVMValueRef result = null;
 
@@ -149,7 +149,7 @@ namespace MiniJParser
             //LLVM.DeleteFunction(BinaryFunction); <--- Really don't understand this one
             LLVM.DisposeBuilder(builder);
 
-            return result;
+            return BinaryFunction;
         }
 
         public LLVMValueRef VisitBlockExpression(BlockExpression blockExpression)
